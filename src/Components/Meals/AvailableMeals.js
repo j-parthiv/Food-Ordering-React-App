@@ -8,13 +8,17 @@ import classes from './AvailableMeals.module.css';
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [httpError, setHttpError] = useState()
 
   useEffect(() => {
     const fetchMeals = async () => {
       setLoading(true)
-      const response = await fetch('https://ringed-metric-368421-default-rtdb.firebaseio.com/meals.json');
+      const response = await fetch('https://ringed-metric-368421-default-rtdb.firebaseio.com/meals');
       const responseData = await response.json();
 
+      if(!response.ok){
+        throw new Error('Something went wrong')
+      }
       const loadedMeals = [];
 
       for (const key in responseData) {
@@ -28,8 +32,12 @@ const AvailableMeals = () => {
      setLoading(false)
       setMeals(loadedMeals);
     };
-
-    fetchMeals();
+    try {
+      fetchMeals(); 
+    } catch (error) {
+      setLoading(false)
+      setHttpError(error.message)
+    }
   }, []);
 
   if(loading){
@@ -39,6 +47,7 @@ const AvailableMeals = () => {
       </section>
     )
   }
+  
   const mealsList = meals.map((meal) => (
     <MealItem
       key={meal.id}
