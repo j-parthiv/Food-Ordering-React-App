@@ -29,16 +29,14 @@ const AvailableMeals = () => {
           price: responseData[key].price,
         });
       }
-     setLoading(false)
+      setLoading(false)
       setMeals(loadedMeals);
     };
-    try {
-      fetchMeals(); 
-    } catch (error) {
-      setLoading(false)
-      setHttpError(error.message)
-    }
-  }, []);
+       fetchMeals().catch((error)=>{
+        setLoading(false)
+        setHttpError(error.message)
+    });
+  },[]);
 
   if(loading){
     return(
@@ -47,7 +45,11 @@ const AvailableMeals = () => {
       </section>
     )
   }
-  
+  if(httpError){
+    return(<section className={classes.MealsError}>
+      <p>{httpError}</p>
+    </section>)
+  }
   const mealsList = meals.map((meal) => (
     <MealItem
       key={meal.id}
