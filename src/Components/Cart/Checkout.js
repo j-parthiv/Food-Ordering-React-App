@@ -10,7 +10,7 @@ const Checkout = (props) => {
     event.preventDefault();
     const enteredName = nameInputRef.current.value;
     const enteredStreet = streetInputRef.current.value;
-    const enteredPincode = pincodeInputRef.current.value;
+    const enteredPostalcode = postalCodeInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
   };
 
