@@ -13,7 +13,7 @@ const AvailableMeals = () => {
   useEffect(() => {
     const fetchMeals = async () => {
       setLoading(true)
-      const response = await fetch('https://ringed-metric-368421-default-rtdb.firebaseio.com/meals');
+      const response = await fetch('https://ringed-metric-368421-default-rtdb.firebaseio.com/meals.json');
       const responseData = await response.json();
 
       if(!response.ok){
