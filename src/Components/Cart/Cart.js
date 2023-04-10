@@ -40,6 +40,7 @@ const Cart = (props) => {
     );
     setIsSubmitting(false);
     setDidSubmit(true);
+    cartCtx.clearCart();
   };
   const ModalActions = (
     <div className={classes.actions}>
